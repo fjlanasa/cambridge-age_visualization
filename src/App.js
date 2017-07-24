@@ -10,7 +10,12 @@ class App extends Component {
       chosenNeighborhood: 'East Cambridge'
     }
 
+    this.resetHood = this.resetHood.bind(this);
     this.handleHoodClick = this.handleHoodClick.bind(this);
+  }
+
+  resetHood() {
+    this.setState({chosenNeighborhood: null});
   }
 
   handleHoodClick(d) {
@@ -21,7 +26,7 @@ class App extends Component {
     return (
       <div className="App">
         <Map {...this.state} handleHoodClick={this.handleHoodClick}/>
-        <Histogram {...this.state}/>
+        <Histogram resetHood={this.resetHood} {...this.state}/>
       </div>
     );
   }

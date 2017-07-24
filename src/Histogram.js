@@ -3,11 +3,25 @@ import * as d3 from 'd3';
 
 export default class Histogram extends Component {
   componentDidUpdate() {
-    let keys = ['City of Cambridge', this.props.chosenNeighborhood];
+    let keys;
+
+    if (this.props.chosenNeighborhood) {
+      keys = ['City of Cambridge', this.props.chosenNeighborhood];
+    } else {
+      keys = this.data.columns.slice(1);
+    }
+
+    this.x0 = d3.scaleBand()
+        .rangeRound([0, this.width])
+        .paddingInner(0.1);
+
+    this.x1 = d3.scaleBand()
+        .padding(0.05);
 
     this.x0.domain(this.data.map((d) => { return d.attr; }));
     this.x1.domain(keys).rangeRound([0, this.x0.bandwidth()]);
     this.y.domain([0, 70]).nice();
+
 
     d3.select('g.legend').selectAll('text')
       .data(keys.slice())
@@ -20,8 +34,30 @@ export default class Histogram extends Component {
       .attr("x", (d) => { return this.x1(d.key); })
       .transition()
       .duration(400)
+        .attr("x", (d) => { return this.x1(d.key); })
+        .attr("width", this.x1.bandwidth())
         .attr("y", (d) => { return this.y(d.value); })
-        .attr('height', (d) => { return this.height - this.y(d.value); })
+        .attr("height", (d) => { return this.height - this.y(d.value); })
+        .attr("fill", (d) => { return this.z(d.key); });
+
+    d3.selectAll('g.age-bin')
+      .data(this.data)
+    .selectAll('rect')
+    .data((d) => { return keys.map((key) => { return {key: key, value: d[key]}; }); })
+    .enter().append('rect')
+    .attr('class', 'bar')
+    .attr("x", (d) => { return this.x1(d.key); })
+    .attr("width", this.x1.bandwidth())
+    .attr("y", (d) => { return this.y(d.value); })
+    .attr("height", (d) => { return this.height - this.y(d.value); })
+    .attr("fill", (d) => { return this.z(d.key); });
+
+    d3.selectAll('g.age-bin')
+      .data(this.data)
+    .selectAll('rect')
+    .data((d) => { return keys.map((key) => { return {key: key, value: d[key]}; }); })
+    .exit().remove();
+
   }
 
   componentDidMount() {
@@ -51,11 +87,12 @@ export default class Histogram extends Component {
         if (error) throw error;
           this.data = data;
 
-          let keys = ['City of Cambridge', this.props.chosenNeighborhood];
+          let keys = data.columns.slice(1);
 
           this.x0.domain(data.map((d) => { return d.attr; }));
           this.x1.domain(keys).rangeRound([0, this.x0.bandwidth()]);
           this.y.domain([0, 70]).nice();
+
           g.append("g")
             .selectAll("g")
             .data(data)
@@ -117,7 +154,7 @@ export default class Histogram extends Component {
   render() {
     return (
       <div className='histogram-container'>
-        <h3>Histogram!</h3>
+        <h3 onClick={this.props.resetHood} data->Age Distribution by Neighborhood</h3>
         <div id='histogram' style={{minHeight: 500}}>
           <svg id='hist' width='100%' height='100%'/>
         </div>
