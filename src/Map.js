@@ -38,6 +38,7 @@ export default class Map extends Component {
       .on('click', this.props.handleHoodClick)
       .style('stroke', '#fff')
       .style('stroke-width', '1')
+      .style('cursor', 'pointer')
       .style('fill', this.setPathStyles);
   }
 
