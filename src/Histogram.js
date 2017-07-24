@@ -51,7 +51,7 @@ export default class Histogram extends Component {
           this.x0.domain(data.map((d) => { return d.attr; }));
           this.x1.domain(keys).rangeRound([0, this.x0.bandwidth()]);
           this.y.domain([0, 70]).nice();
-          
+
           g.append("g")
             .selectAll("g")
             .data(data)
