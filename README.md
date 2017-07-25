@@ -1,6 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
-### Demo Site: http://cambridge-age.s3-website-us-west-2.amazonaws.com/m/
+### Demo Site: http://cambridge-age.s3-website-us-west-2.amazonaws.com
 
 ### Setting Up
 
