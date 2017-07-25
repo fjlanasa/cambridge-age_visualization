@@ -1,16 +1,30 @@
 .App {
+  padding: 1em;
   text-align: center;
-  display: flex;
 }
 
 .App div {
   height: 100%;
 }
 
-.map-container {
-  width: 40%;
+text {
+  font-size: 14px;
 }
 
-.histogram-container {
-  width: 60%;
+@media (min-width: 500px) {
+  .App {
+    display: flex;
+  }
+
+  text {
+    font-size: 16px;
+  }
+
+  .map-container {
+    width: 40%;
+  }
+
+  .histogram-container {
+    width: 60%;
+  }
 }

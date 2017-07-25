@@ -89,7 +89,6 @@ export default class Histogram extends Component {
           let legend = g.append("g")
             .attr("class", "legend")
             .attr("font-family", "sans-serif")
-            .attr("font-size", 10)
             .attr("text-anchor", "end")
           .selectAll("g")
           .data(keys.slice())
@@ -114,8 +113,8 @@ export default class Histogram extends Component {
     return (
       <div className='histogram-container'>
         <h3>Age Distribution by Neighborhood</h3>
-        <div id='histogram' style={{minHeight: 500}}>
-          <svg id='hist' width='100%' height='100%'/>
+        <div id='histogram'>
+          <svg id='hist'/>
         </div>
       </div>
     );

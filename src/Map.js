@@ -18,14 +18,14 @@ export default class Map extends Component {
     let json = cambridgeNeighborhoods,
         projection = d3.geoMercator()
                        .center([-71.1,42.36])
-                       .translate([250, 275])
-                       .scale([200000]),
+                       .translate([300, 275])
+                       .scale([250000]),
         path = d3.geoPath().projection(projection),
         svg = d3.select('div#neighborhood-map')
                 .append('svg')
                 .attr('width', '100%')
                 .attr('height', '100%')
-                .attr('viewBox', '0 0 500 600'),
+                .attr('viewBox', '0 0 500 350'),
         g = svg.append('g')
                .style('stroke-width', '1.5px');
 
